@@ -53,3 +53,25 @@ class GCSymbol(MathObj):
     @cache
     def get_domain_latex(self) -> str:
         return self.domain_latex
+
+class GCSymbol_3d(MathObj):
+    def __init__(self, name: str, domain_settings: Optional[DomainSettings] = None):
+        """
+        几何计算器中的符号
+        为与 SymPy 的 ``Symbol`` 区分，在前面加上了 GC- (Geometry Calculator) 前缀
+        :param name: 符号名称，通常为一个小写英文字母（x, y, z除外）或希腊字母的英文拼写
+                     特殊时，为类似 x_A 的格式，这是在输入点坐标为空时创建的
+        :param domain_settings: 取值范围设置
+                                若为 None，则视作 R（方便后端调用）
+        """
+        super().__init__(name)
+        self.domain_latex, assumptions = get_domain_latex_and_assumptions(domain_settings)
+        self.sp_symbol = Symbol(name, **assumptions)
+
+    @cache
+    def get_name_latex(self) -> str:
+        return latex(self.sp_symbol)
+
+    @cache
+    def get_domain_latex(self) -> str:
+        return self.domain_latex
