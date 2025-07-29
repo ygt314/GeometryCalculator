@@ -2,7 +2,7 @@
 > <p align="right">——我们初中一位数学老师</p>
 
 # 几何计算器 2
-(3d几何计算器)[README_3d.md]
+[3d几何计算器](README_3d.md)
 ## 其它语言
 
 * [English (US)](README.en.md)

@@ -3,7 +3,7 @@ How could our method possibly be faster than just setting up a coordinate system
 > <p align="right"> - One of our middle school math teachers</p>
 
 # Geometry Calculator
-(3d for Geometry Calculator)[README_3d.en.md]
+[3d for Geometry Calculator](README_3d.en.md)
 ## Other Languages
 
 * [English (US)](README.en.md)
