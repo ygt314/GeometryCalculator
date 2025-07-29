@@ -376,11 +376,11 @@ class Problem_3d:
 
     @AddBinCond_3d(r'\parallel')
     def add_parallel(self, input1: str, input2: str) -> list[Eq]:
-        "两直线平行|a×b|=0"
+        "两直线平行a×b=**0**"
         v1=self._get_vec(input1)
         v2=self._get_vec(input2)
         n=v1 @ cross @ v2
-        return [Eq(n.norm(), Integer(0))]
+        return [Eq(n[0], Integer(0)), Eq(n[1], Integer(0)), Eq(n[2], Integer(0))]
 
     @AddBinCond_3d(r'\perp')
     def add_perp(self, input1: str, input2: str) -> list[Eq]:
@@ -395,7 +395,7 @@ class Problem_3d:
         a1, b1, c1 = input1[:2], input1[1:], input1[0] + input1[2]
         a2, b2, c2 = input2[:2], input2[1:], input2[0] + input2[2]
         eqs = []
-        for s1, s2 in [(a1, a2), (b1, b2), (c1, c2)]:
+        for s1, s2 in (a1, a2), (b1, b2), (c1, c2):
             eqs.append(Eq(self._get_distance(s1), self._get_distance(s2)))
         return eqs
 

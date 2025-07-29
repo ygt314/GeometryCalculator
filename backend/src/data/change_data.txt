@@ -2,21 +2,35 @@
 无变化:math_obj.py, symbol.py, cond.py
 + __init__.py:导入cond_3d GCPoint_3d
 + cond_3d.py<-cond.py:
-+- to_raw_latex函数:
-    + .replace('cross','×')) # ×表示叉乘
-    +tr # trABC -> △ABC,区分平面表示
-    +tr (r'\btr([A-Z]{3})\b', r'\\triangle \1'),
-    + # spABC -> 平面ABC
-    + (r'\bsp([A-Z]+\b)',r'平面\1')
++- to_raw_latex_3d函数:
+    +- expr替换链:
+        +.replace('cross','×'))#end # ×表示叉乘
+    + rules列表:
+        +tr # trABC -> △ABC,区分平面表示
+        +tr (r'\btr([A-Z]{3})\b', r'\\triangle \1'),
+        +# pangABCD -> ∠A-BC-D
+        +(r'\bpang([A-Z])([A-Z]{2})([A-Z])\b', r'\\angle \1-\2-\3'),
+        +# llAB/CD -> ∠AB-CD
+        +(r'\bll([A-Z]{2})/([A-Z]{2})\b', r"\\angle \1-\2"),
+        +# lpAB/spBCD -> ∠AB-spBCD
+        +(r'\blp([A-Z]{2})/(sp[A-Z]+)\b', r"\\angle \1-\2"),
+        +# ppspABC/spBCD -> ∠spABC-spBCD
+        +(r'\bpp(sp[A-Z]+)/(sp[A-Z]+)\b', r"\\angle \1-\2"),
+        +# spABC -> 平面ABC(法向量)
+        +(r'\bsp([A-Z]+\b)',r'平面\1'),
+        +# dAtBCD -> d_{A 到 平面BCD}
+        +(r'\bd([A-Z])t([A-Z]{3})\b', r'd_{\1 到 平面\2}'),
+        +# vABCD -> V_四面体ABCD
+        +(r'\bv([A-Z]{4})\b', r'V_{四面体\1}'),
 point.py:
 + """Point:自动挡的点对象
 + Point(1,2)->Point2D(1,2)
 + Point(1,2,3)->Point3D(1,2,3)
 + 支持加减:Point(1,2)-Point(2,3)=Point2D(-1,-1)
 + 支持化矩阵:Matrix(Point(1,2))=Matrix([1,2])"""
-    +- class GCPoint:更改未知数参数传入方式(为列表)
-        +- self.x, self.y= tuple(xy)#更改接收方式,下同
-        +- ...Point(xy)
++- class GCPoint:更改未知数参数传入方式(为列表)
+    +- self.x, self.y= tuple(xy)#更改接收方式,下同
+    +- ...Point(xy)
 + class GCPoint_3d ...#格式与GCPoint相同
 symbol.py:
 + class GCSymbol_3d ...#格式与GCSymbol相同

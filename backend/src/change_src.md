@@ -1,28 +1,35 @@
 ##这里说明为了适应3d模式做的改变，以便debug
 - 目录data:参见(data/change\_data.txt)[data/change_data.txt]
-- 无变化:`custom_latex.py`, `logger.py`, `main.py`, `main_dev.py`, `type_hints.py`
+- 无变化:`api.py`, `custom_latex.py`, `logger.py`, `main.py`, `main_dev.py`, `type_hints.py`
 - +- `problem.py` #坐标传递优化,对应data/point.py变化(详情参见data/change\_data.txt)
-- + `api.py` #添加3d问题支持
+- + `api_3d.py` ← `api.py` #3d问题支持
 
 ```
-from problem_3d import Problem_3d 
+from logger import frontend_logger
+from problem_3d import Problem_3d
+class API_3d:
+    problem_3d = Problem_3d()
+    logger_3d = frontend_logger
+api_3d = API_3d()
 ```
 - + `problem_3d.py` ← `problem.py` #3d问题支持
 改变函数:
 
 ```
-def _get_triangle_area(self, name: str) -> Expr:
-    "叉乘大小的一半可表示三角形面积"
-    +- # 叉乘表示(真香.jpg 2233...
 def _get_distance(self, name: str) -> Expr:
     + "向量大小=端点距离"
-    +- # 不用距离公式，直接获取向量大小
+    +- return self._get_vec(name).norm()# 不用距离公式，直接获取向量大小
 def _get_angle(self, name: str) -> Expr:
     + "a·b=|a||b|cos θ:∠ABC"
     v1 = self._get_vec(name[1::-1])
     v2 = self._get_vec(name[1:])
     + cos0 = self._get_vec_angle(v1,v2)
     +- return acos(cos0) #折中方法(中间函数法)，区分直线所成角表示
+def _get_triangle_area(self, name: str) -> Expr:
+    "叉乘大小的一半可表示三角形面积"
+    +- # 叉乘表示(真香.jpg 2233...
+    Sp = self._get_n_vec(name).norm()
+    return Sp/Integer(2)
 ```
 添加函数:
 
@@ -36,7 +43,8 @@ def _get_vec_angle(self, v1: Matrix, v2: Matrix) -> Expr:
     """
     return v1.dot(v2) / (v1.norm() * v2.norm())
 def _get_n_vec(self, name: str) -> Expr:
-    """a×b可作为平面法向量
+    """
+    a×b可作为平面法向量(sp)ABC
     大小为(向量围成的)平行四边形面积
     """
 def _get_plp_angle(self, plp: str) -> Expr:

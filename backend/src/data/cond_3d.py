@@ -55,24 +55,24 @@ def to_raw_latex_3d(expr: str) -> str:
         (r'\bvec([A-Z]{2})\b', r'\\overrightarrow{\1}'),
         # trABC -> △ABC,区分平面表示
         (r'\btr([A-Z]{3})\b', r'\\triangle \1'),
-        # spABC -> 平面ABC(法向量)
-        (r'\bsp([A-Z]+\b)',r'平面 \1')
         # angABC -> ∠ABC
         (r'\bang([A-Z]{3})\b', r'\\angle \1'),
         # 删除多余点号
         (r'(?<=[0-9a-z])\s*\\cdot\s*(?=[a-zA-Z]|\\overrightarrow)', r' '),
         # pangABCD -> ∠A-BC-D
-        (r'\bpang([A-Z])([A-Z]{2})([A-Z]))\b', r'\\angle \1-\2-\3'),
-        # ll
-        (r'\bll([A-Z]{2})/([A-Z]{2})\b', r"\\angle \1与\2"),
-        # lp
-        (r'\blp([A-Z]{2})/(sp[A-Z]+)\b', r"\\angle \1与\2"),
-        # pp
-        (r'\bpp(sp[A-Z]+)/(sp[A-Z]+)\b', r"\\angle \1与\2"),
-        # dAtBCD -> d_{A 到平面 BCD}
-        (r'\bd([A-Z])t([A-Z]{3})\b', r'd_{\1 到平面 \2}'),
+        (r'\bpang([A-Z])([A-Z]{2})([A-Z])\b', r'\\angle \1-\2-\3'),
+        # llAB/CD -> ∠AB-CD
+        (r'\bll([A-Z]{2})/([A-Z]{2})\b', r"\\angle \1-\2"),
+        # lpAB/spBCD -> ∠AB-spBCD
+        (r'\blp([A-Z]{2})/(sp[A-Z]+)\b', r"\\angle \1-\2"),
+        # ppspABC/spBCD -> ∠spABC-spBCD
+        (r'\bpp(sp[A-Z]+)/(sp[A-Z]+)\b', r"\\angle \1-\2"),
+        # spABC -> 平面ABC(法向量)
+        (r'\bsp([A-Z]+\b)',r'平面\1'),
+        # dAtBCD -> d_{A 到 平面BCD}
+        (r'\bd([A-Z])t([A-Z]{3})\b', r'd_{\1 到 平面\2}'),
         # vABCD -> V_四面体ABCD
-        (r'\bv([A-Z]{4})\b', r'V_{四面体 \1}'),
+        (r'\bv([A-Z]{4})\b', r'V_{四面体\1}'),
         # StABC -> S△ABC
         (r'\bSt([A-Z]{3})\b', r'S_{\\triangle \1}'),
         # xA -> x_A
