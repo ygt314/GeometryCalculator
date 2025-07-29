@@ -2,36 +2,18 @@ from typing import Callable
 
 
 def mark_vec_coord(expr: str) -> str:
-    """用 ``Matrix([])`` 标记表达式中向量的坐标表示（二元组）"""
-    char_list = list(expr)
-    # 找出所有逗号
-    comma_indexes = [i for i, c in enumerate(char_list) if c == ',']
-    for comma_i in comma_indexes:
-        # 向左找出未闭合的左括号
-        n = 1
-        for i in range(comma_i, -1, -1):
-            if char_list[i] == ')':
-                n += 1
-            elif char_list[i] == '(':
-                n -= 1
-                if n == 0:
-                    char_list[i] = 'Matrix(['
-                    break
-        # 向右找出未闭合的右括号
-        n = 1
-        for i in range(comma_i, len(char_list)):
-            if char_list[i] == '(':
-                n += 1
-            elif char_list[i] == ')':
-                n -= 1
-                if n == 0:
-                    char_list[i] = '])'
-                    break
-    return ''.join(char_list)
+    """
+    用 ``Matrix([])`` 标记表达式中向量的坐标表示
+    现支持多维向量
+    """
+    pattern = r'(?<!Matrix)\(([\d,],[\d,]+)\)'
+    result = re.sub(pattern,r'Matrix([\1])',expr)
+    return result
 
 
 class Infix:
-    """【Python 竟然允许这种语法， Python中缀运算符】 https://www.bilibili.com/video/BV1Xe411r7VE"""
+    """【Python 竟然允许这种语法， Python中缀运算符】 https://www.bilibili.com/video/BV1Xe411r7VE
+    用法: A @ dot(cross) @ B"""
 
     def __init__(self, func: Callable):
         self.func = func
@@ -44,3 +26,4 @@ class Infix:
 
 
 dot = Infix(lambda a, b: a.dot(b))
+cross = Infix(lambda a, b: a.cross(b))

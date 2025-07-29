@@ -6,8 +6,8 @@ import functools
 from abc import ABC, abstractmethod
 from collections import deque
 import pickle
-from sympy import Symbol, Expr, simplify, Eq, Line3D, solve, Point3D, Matrix, acos, latex, Abs, sqrtdenest
-from sympy import sqrt, sin, cos, tan, pi, Integer  # noqa
+from sympy import Symbol, Expr, simplify, Eq, Line3D, solve, Point3D, Matrix, latex, Abs, sqrtdenest
+from sympy import sqrt, sin, asin, cos, acos, tan, pi, Integer  # noqa
 from sympy.logic.boolalg import BooleanTrue, BooleanFalse
 from webview import windows, SAVE_DIALOG, OPEN_DIALOG
 from data import MathObj, GCSymbol_3d, GCPoint_3d, Cond_3d, to_raw_latex_3d
@@ -121,7 +121,7 @@ class Problem_3d:
         return self.math_objs[name].sp_point  # type: ignore
 
     def _get_line(self, name: str) -> Line3D:
-        "两点定直线"
+        "两点定直线,似乎没什么用(用向量足够了(/doge)"
         p1 = self._get_sp_point(name[0])
         p2 = self._get_sp_point(name[1])
         return Line(p1, p2)
@@ -169,36 +169,41 @@ class Problem_3d:
         """
         二面角:A(p)-BC(l)-D(p)
         传入plp时'-'应省略,即(pang)ABCD
+        cosθ=±cos<n1,n2>，异侧同角，同侧补角
+        下面n1,n2为平面的异侧方向->θ=<n1,n2>
         """
-        v1 = self._get_n_vec(plp[0:2])
-        v2 = self.get_n_vec(plp[1:3])
-        cos0 = self._get_vec_angle(v1,v2)
+        n1 = self._get_n_vec(plp[0:2])
+        n2 = self.get_n_vec(plp[1:3])
+        cos0 = self._get_vec_angle(n1,n2)
         return acos(cos0)
 
-    def _get_ll_angle(self, ll: str) -> Expr:
-        """
+    def _get_ll_angle(self, l1: str, l2: str) -> Expr:
+        """"
         (异面)直线(AB)与(CD)所成角(ll)
         传入ll时，应为(ll)AB/CD
+        cosθ=|cos<v1,v2>|
         """
         v1 = self._get_vec(ll[0:1])
         v2 = self._get_vec(ll[2:4])
         cos0 = self._get_vec_angle(v1,v2)
         return acos(Abs(cos0))
 
-    def _get_lp_angle(self, lp: str) -> Expr:
+    def _get_lp_angle(self, l: str, p: str) -> Expr:
         """
         直线AB与平面(sp)ABC所成角(lp)
         (lp)AB/spABC
+        sinθ=|cos<v,n>|
         """
         v = self._get_vec(lp[0:1])
         n = self._get_n_vec(lp[5:7])
         cos0 = self._get_vec_angle(v,n)
-        return acos(Abs(cos0))
+        return asin(Abs(cos0))
 
-    def _get_pp_angle(self, pp: str) -> Expr:
+    def _get_pp_angle(self, p1: str, p2: str) -> Expr:
         """
         平面(sp)ABC与平面(sp)BCD所成角(pp)
         (pp)spABC/spBCD
+        cosθ=|cos<n1,n2>|
         """
         p1, p2 = tuple(pp.split("/"))
         n1 = self._get_n_vec(p1[2:4])
