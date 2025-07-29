@@ -210,6 +210,7 @@ class Problem_3d:
         """
         点A到直线BC(底a)的距离(d)
         Sp=d*a=|va×vb|
+        传入:dAtBC
         """
         Sp = self._get_n_vec(p+l).norm()
         a = self._get_distance(l)
@@ -221,6 +222,7 @@ class Problem_3d:
         点A到BC距离(h2)
         平面ABC与平面BCD所成角(θ)
         h1=h2*cosθ
+        传入:dAtBCD
         """
         l = plane[0:1]
         d = self._get_distance_pl(point, l)
@@ -369,20 +371,18 @@ class Problem_3d:
 
     @AddBinCond_3d(r'\parallel')
     def add_parallel(self, input1: str, input2: str) -> list[Eq]:
-        """
-        两直线平行
-        根据 https://github.com/YuzhenQin/GeometryCalculator/issues/2，不应用斜截式，而应用一般式，下同
-        """
-        a1, b1, _ = self._get_line(input1).coefficients
-        a2, b2, _ = self._get_line(input2).coefficients
-        return [Eq(a1 * b2, a2 * b1)]
+        "两直线平行|a×b|=0"
+        v1=self._get_vec(input1)
+        v2=self._get_vec(input2)
+        n=v1 @ cross @ v2
+        return [Eq(n.norm(), Integer(0))]
 
     @AddBinCond_3d(r'\perp')
     def add_perp(self, input1: str, input2: str) -> list[Eq]:
-        """两直线垂直"""
-        a1, b1, _ = self._get_line(input1).coefficients
-        a2, b2, _ = self._get_line(input2).coefficients
-        return [Eq(a1 * a2 + b1 * b2, 0)]
+        "两直线垂直a·b=0"
+        v1=self._get_vec(input1)
+        v2=self._get_vec(input2)
+        return [Eq(v1 @ dot @ v2, Integer(0))]
 
     @AddBinCond_3d(r'\cong')
     def add_cong(self, input1: str, input2: str) -> list[Eq]:
