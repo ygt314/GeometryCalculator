@@ -3,9 +3,9 @@
 - 目录data:参见[data/change\_data.txt](data/change_data.txt)
 - 无变化:`api.py`, `custom_latex.py`, `logger.py`, `main.py`, `main_dev.py`, `type_hints.py`
 - +- `problem.py` #坐标传递优化,对应data/point.py变化(详情参见data/change\_data.txt)
-- + `api_3d.py` ← `api.py` #3d问题支持
+- \+ `api_3d.py` ← `api.py` #3d问题支持
 
-```
+```python
 from logger import frontend_logger
 from problem_3d import Problem_3d
 class API_3d:
@@ -13,10 +13,12 @@ class API_3d:
     logger_3d = frontend_logger
 api_3d = API_3d()
 ```
-- + `problem_3d.py` ← `problem.py` #3d问题支持
+- \+ `main_3d.py` ← `main.py`
+- \+ `main_dev_3d.py` ← `main_dev.py`
+- \+ `problem_3d.py` ← `problem.py` #3d问题支持
 1. 改变函数:
 
-```
+```python
 def _get_distance(self, name: str) -> Expr:
     + "向量大小=端点距离"
     +- return self._get_vec(name).norm()# 不用距离公式，直接获取向量大小
@@ -34,7 +36,7 @@ def _get_triangle_area(self, name: str) -> Expr:
 ```
 2. 添加函数:
 
-```
+```python
 def _get_vec_angle(self, v1: Matrix, v2: Matrix) -> Expr:
     """"
     中间函数:向量夹角余弦
@@ -97,7 +99,7 @@ def _get_volume(self, trip: str) -> Expr:
 - `vec_parse_utils.py`:
 1. +- `mark_vec_coord`函数:#支持3d模式
 
-```
+```python
 def mark_vec_coord(expr: str) -> str:
     """
     用 ``Matrix([])`` 标记表达式中向量的坐标表示
@@ -107,9 +109,9 @@ def mark_vec_coord(expr: str) -> str:
     result = re.sub(pattern,r'Matrix([\1])',expr)
     return result
 ```
-2. + class `Infix`:#**添加提示**:中缀运算符用法
-3. + (`cross`)叉乘中缀运算符支持
+2. \+ class `Infix`:#**添加提示**:中缀运算符用法
+3. \+ (`cross`)叉乘中缀运算符支持
 
-```
+```python
 cross = Infix(lambda a, b: a.cross(b))
 ```

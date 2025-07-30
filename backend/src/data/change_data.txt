@@ -1,11 +1,12 @@
 #这里说明为了适应3d模式做的改变，以便debug
 无变化:math_obj.py, symbol.py, cond.py
-+ __init__.py:导入cond_3d GCPoint_3d
++- __init__.py:
++ #导入cond_3d GCPoint_3d
 + cond_3d.py<-cond.py:
 +- to_raw_latex_3d函数:
     +- expr替换链:
         +.replace('cross','×'))#end # ×表示叉乘
-    + rules列表:
+    +- rules列表:
         +tr # trABC -> △ABC,区分平面表示
         +tr (r'\btr([A-Z]{3})\b', r'\\triangle \1'),
         +# pangABCD -> ∠A-BC-D
@@ -22,7 +23,7 @@
         +(r'\bd([A-Z])t([A-Z]{3})\b', r'd_{\1 到 平面\2}'),
         +# vABCD -> V_四面体ABCD
         +(r'\bv([A-Z]{4})\b', r'V_{四面体\1}'),
-point.py:
++- point.py:
 + """Point:自动挡的点对象
 + Point(1,2)->Point2D(1,2)
 + Point(1,2,3)->Point3D(1,2,3)
