@@ -11,13 +11,12 @@ Take advantage of your PC’s raw horsepower—brute‑force your geometry probl
 * [User Guide](frontend/src/pages/docs.md)
 * [About Geometry Calculator Ver 2](frontend/src/pages/about.md)
 # Change # here illustrates the changes made to accommodate 3d mode
-The backend `backend/src/` parent directory: see the directory (change_src.md file)[backend/src/change_src.md]
-Warning: the front end is not supported, so the author needs to support it
-The new triangle writing: `trABC` # This is to distinguish the flat writing 
-And add the flat writing: `spABC`
+The backend `backend/src/` parent directory: see the directory [change_src.md file](backend/src/change\_src.md)
+[The new triangle writing]: `trABC` # This is to distinguish the flat writing 
+[And add the flat writing]: `spABC` # The actual representation plane normal vector
 # About Three-dimensional (3d) Pattern Support
 
-1. The basic usage remains the same, and the flat writing only supports three points (such as `平面ABC`(flat ABC))
+1. The basic usage remains the same, and the flat writing only supports three points (such as `spABC`(plane ABC))
 2. Three dimensional cross product(**cross**):The result is a three-dimensional vector (which can be regarded as a plane normal vector)
 Such as _AB_×_AC_ writed by `vecAB cross vecAC`，but you have to be careful.:
 - Cross product can only be used for vectors in three-dimensional space.
