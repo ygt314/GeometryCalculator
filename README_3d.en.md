@@ -1,5 +1,5 @@
 As one of the three prohibitions in high school is encouraged(byd) (bushi [/doge] > <p align = " right "> Editor's note </p>
-## Geometry Calculator Ver 2
+## Geometry Calculator for 3d
 
 ## Other Languages
 
