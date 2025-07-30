@@ -13,9 +13,10 @@
 - [使用文档](frontend/src/pages/docs.md)
 - [关于 几何计算器 2](frontend/src/pages/about.md)
 # 改变#这里说明为了适应3d模式做的改变
-后端`bachend/src/`目录:参见目录下[change_src.md文件](backend/src/change\_src.md)
-[新三角形写法]:`trABC` #这是为了区分平面写法
-[新增平面写法]:`spABC` #实际表示平面法向量
+
+1. 后端`bachend/src/`目录:参见目录下[change_src.md文件](backend/src/change\_src.md)
+2. **新三角形写法**:`trABC` #这是为了区分平面写法
+3. **新增平面写法**:`spABC` #实际表示平面法向量
 # 关于三维(3d)模式支持
 
 1. 基本用法不变,平面写法仅支持三点(如`spABC`)

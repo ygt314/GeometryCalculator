@@ -11,9 +11,10 @@ Take advantage of your PC’s raw horsepower—brute‑force your geometry probl
 * [User Guide](frontend/src/pages/docs.md)
 * [About Geometry Calculator Ver 2](frontend/src/pages/about.md)
 # Change # here illustrates the changes made to accommodate 3d mode
-The backend `backend/src/` parent directory: see the directory [change_src.md file](backend/src/change\_src.md)
-[The new triangle writing]: `trABC` # This is to distinguish the flat writing 
-[And add the flat writing]: `spABC` # The actual representation plane normal vector
+
+1. The backend `backend/src/` parent directory: see the directory [change_src.md file](backend/src/change\_src.md)
+2. **The new triangle writing**: `trABC` # This is to distinguish the flat writing 
+3. **And add the flat writing**: `spABC` # The actual representation plane normal vector
 # About Three-dimensional (3d) Pattern Support
 
 1. The basic usage remains the same, and the flat writing only supports three points (such as `spABC`(plane ABC))

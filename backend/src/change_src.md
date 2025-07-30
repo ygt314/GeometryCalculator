@@ -1,5 +1,6 @@
 ##这里说明为了适应3d模式做的改变，以便debug
-- 目录data:参见(data/change\_data.txt)[data/change_data.txt]
+
+- 目录data:参见[data/change\_data.txt](data/change_data.txt)
 - 无变化:`api.py`, `custom_latex.py`, `logger.py`, `main.py`, `main_dev.py`, `type_hints.py`
 - +- `problem.py` #坐标传递优化,对应data/point.py变化(详情参见data/change\_data.txt)
 - + `api_3d.py` ← `api.py` #3d问题支持
@@ -13,7 +14,7 @@ class API_3d:
 api_3d = API_3d()
 ```
 - + `problem_3d.py` ← `problem.py` #3d问题支持
-改变函数:
+1. 改变函数:
 
 ```
 def _get_distance(self, name: str) -> Expr:
@@ -31,7 +32,7 @@ def _get_triangle_area(self, name: str) -> Expr:
     Sp = self._get_n_vec(name).norm()
     return Sp/Integer(2)
 ```
-添加函数:
+2. 添加函数:
 
 ```
 def _get_vec_angle(self, v1: Matrix, v2: Matrix) -> Expr:
@@ -94,7 +95,7 @@ def _get_volume(self, trip: str) -> Expr:
     """
 ```
 - `vec_parse_utils.py`:
-- +- `mark_vec_coord`函数:#支持3d模式
+1. +- `mark_vec_coord`函数:#支持3d模式
 
 ```
 def mark_vec_coord(expr: str) -> str:
@@ -106,8 +107,8 @@ def mark_vec_coord(expr: str) -> str:
     result = re.sub(pattern,r'Matrix([\1])',expr)
     return result
 ```
-- + class `Infix`:#**添加提示**:中缀运算符用法
-- + (`cross`)叉乘中缀运算符支持
+2. + class `Infix`:#**添加提示**:中缀运算符用法
+3. + (`cross`)叉乘中缀运算符支持
 
 ```
 cross = Infix(lambda a, b: a.cross(b))
