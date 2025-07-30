@@ -86,7 +86,7 @@ def _get_distance_pp(self, point: str, plane: str) -> Expr:
     点A到平面BCD的距离(h1)
     点A到BC距离(h2)
     平面ABC与平面BCD所成角(θ)
-    h1=h2*cosθ
+    h1=h2*sinθ
     传入:dAtBCD
     """
 def _get_volume(self, trip: str) -> Expr:

@@ -226,7 +226,7 @@ class Problem_3d:
         点A到平面BCD的距离(h1)
         点A到BC距离(h2)
         平面ABC与平面BCD所成角(θ)
-        h1=h2*cosθ
+        h1=h2*sinθ
         传入:dAtBCD
         """
         l = plane[0:1]
@@ -234,7 +234,7 @@ class Problem_3d:
         sp1 = 'sp'+point+l
         sp2 = 'sp'+plane
         o = self._get_pp_angle(sp1+'/'+sp2)
-        return d*cos(o)
+        return d*sin(o)
 
     def _get_volume(self, trip: str) -> Expr:
         """
